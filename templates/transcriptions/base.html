@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+	{{ block.super }}
+	<script type="text/javascript" src="{% static 'common/js/jquery-3.6.0.min.js' %}"></script>
+	<link rel=stylesheet href="{% static 'common/pure-release-1.0.0/pure-min.css' %}" type="text/css"/>
+	<title>{{ page_title }}</title>
+{% endblock %}
+
+{% block header %}
+  <header id="header" role="banner">
+	<h1 id="page_title">{{ page_title }}</h1>
+	{% block login_status %}
+	  <div id="login_status">
+		{% if login_status %}
+		  logged in as <a href="/accounts/profile">{{ login_status }}</a><br/><a href="/accounts/logout?next={{ post_logout_url }}">logout</a>
+		{% else %}
+		  <a href="/accounts/login?next={{ post_login_url }}">login</a>
+		{% endif %}
+	  </div>
+	{% endblock %}
+  </header>
+  {% block breadcrumbs %}
+  {% endblock %}
+{% endblock %}

@@ -1,0 +1,100 @@
+
+body {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    font-family: arial;
+}
+
+#header {
+    padding: 7px;
+    height: 40px;
+    background: lightsteelblue;
+}
+
+#container {
+    padding-top: 10px;
+    padding-bottom: 50px;
+    padding-left: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+h2 {
+    font-size: 13pt;
+}
+
+div.section {
+    padding: 20px;
+}
+
+div.column1, div.column2 {
+  border-right: 1px solid black;
+}
+
+div#schema_download {
+    padding-top: 30px;
+    margin-top: 40px;
+    border-top: 1px solid black;
+}
+
+div#login_status {
+    float: right;
+    font-size: 11pt;
+}
+
+#header h1 {
+    float: left;
+    font-family: arial;
+    font-size: 12pt;
+}
+
+.error_message {
+    position:fixed;
+    top:0;
+    left:0;
+    width:700px;
+    padding: 5px;
+    background-color: #D8D8D8;
+    border: 2px solid red;
+}
+
+.message {
+    position:fixed;
+    top:0;
+    left:0;
+    width:700px;
+    padding: 5px;
+    background-color: #D8D8D8;
+    border: 2px solid green;
+}
+
+p#indicator {
+    display: inline-block;
+    width: 695px;
+}
+
+.error_message #error_title {
+    color: red;
+}
+
+#error_close {
+    float: right;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#transcription_upload_form label, #transcription_validate_form label {
+    display: block;
+    margin-top:20px;
+    margin-bottom:10px;
+}
+
+#transcription_upload_form #index_button,
+#transcription_upload_form #check_ingested_data {
+    margin-top:20px;
+}
+
+input[type=checkbox] {
+    margin-right: 5px;
+}

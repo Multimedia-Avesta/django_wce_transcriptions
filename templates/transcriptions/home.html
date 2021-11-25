@@ -1,0 +1,13 @@
+{% extends "transcriptions/base.html" %}
+{% load static %}
+
+{% block container %}
+    <main role="main" id="container">
+      {% if login_status %}
+        <p>To validate, upload and delete transcriptions please visit the <a href="transcriptions/manage">transcription management page</a></p>
+      {% else %}
+        <p>You need to be logged in to access the transcriptions interface.</p>
+      {% endif %}
+
+  </main>
+{% endblock %}

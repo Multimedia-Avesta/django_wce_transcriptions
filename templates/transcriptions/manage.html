@@ -1,0 +1,85 @@
+{% extends "transcriptions/base.html" %}
+{% load static %}
+
+{% block head %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% static 'common/js/forms.js' %}"></script>
+  <script type="text/javascript" src="{% static 'api/js/api.js' %}"></script>
+  <script type="text/javascript" src="{% static 'transcriptions/js/indexing_progress.js' %}"></script>
+  <script type="text/javascript" src="{% static 'transcriptions/js/transcription_uploader.js' %}"></script>
+  <link rel=stylesheet href="{% static 'transcriptions/css/transcript_uploader.css' %}" type="text/css"/>
+  <script>
+    $(document).ready(function () {
+      transcript_uploader.prepareForm();
+    })
+  </script>
+
+{% endblock %}
+
+{% block container %}
+  <main role="main" id="container">
+    <div class="section column1">
+        <h2>Validate XML Transcription</h2>
+        <form id="transcription_validate_form">
+            <input type="hidden" id="validate_src" name="validate_src" class="string"/>
+            <p>This validator will check that
+              <ul><li>a valid sigla has been provided</li>
+                <li>all of the corrector hands in the transcription have been declared in the header</li>
+                <li>that the transcription validates against the XML schema.</li></ul>
+              You can skip the validation of the schema by checking the box below.
+              </p>
+            <label><input type="checkbox" name="skip_schema_validation" id="validate_skip_schema"/>Skip schema validation</label>
+            <label for="validation_file">Select a file to validate:<br/><br/>
+            <input id="validation_file" type="file"></label>
+            <input class="pure-button" type="button" id="validate_button" value="Validate" disabled="disabled"/>
+        </form>
+
+        <div id="schema_download">
+            <input class="pure-button" type="button" id="download_schema_button" value="Download Schema"/>
+        </div>
+
+    </div>
+    <div class="section column2">
+        <h2>Upload XML Transcription</h2>
+        <form id="transcription_upload_form">
+            <input type="hidden" id="src" name="src" class="string"/>
+            <input type="hidden" id="collection" name="collection" value="AV" class="string"/>
+            <p>Before being uploaded the transcription must validate.</p>
+
+            <p>You can choose to skip the schema validation by checking the box below.
+              Doing so may lead to less reliable results.</p>
+            <label><input type="checkbox" name="skip_schema_upload" id="upload_skip_schema"/>Skip schema validation</label>
+            <label for="index_file">Select a file to upload and add to the database for collation:<br/><br/>
+            <input id="index_file" type="file"></label>
+            <p>Languages to extract:</p>
+            <label><input type="checkbox" name="language_1" value="ae" checked="checked">Avestan</label>
+            <label><input type="checkbox" name="language_2" value="sa">Sanskrit</label>
+            <label><input type="checkbox" name="language_3" value="pal-Phlv">Pahlavi</label>
+            <input class="pure-button" type="button" id="index_button" value="Upload" disabled="disabled"/>
+            <input class="pure-button" type="button" id="check_ingested_data" value="See Ingested Data" disabled="disabled"/>
+        </form>
+    </div>
+    <div class="section column3">
+      <h2>Delete Transcription</h2>
+      <form id="transcription_delete_form" action="/transcriptions/delete" method="post">
+        {% csrf_token %}
+        <p>Deleting a transcription will also remove it from all project cofigurations in which it appears.</p>
+        <label for="delete-transcription">Delete Transcription:</label>
+        <select name="delete-transcription" id="delete-transcription">
+          <option value="none">select</option>
+          {% for transcription in transcriptions %}
+            <option value="{{ transcription.identifier }}|{{ transcription.id }}">{{ transcription.identifier }}</option>
+          {% endfor %}
+        </select>
+        <input class="pure-button" type="button" id="delete_transcription_button" value="Delete"/>
+      </form>
+    </div>
+
+  </main>
+{% endblock %}
+
+{% block footer %}
+	<div id="footer">
+		<a class="pure-button left_foot" href="/collation/transcriptionmanagement">Transcription Management</a>
+	</div>
+{% endblock %}
