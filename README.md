@@ -25,7 +25,7 @@ command ```load_MUYA_works```.
 
 This app is tested with Django 3.2.
 
-It requires the MUYA-WCE api and accounts apps to be installed. ADD LINKS
+It requires the MUYA-WCE api (https://github.com/Multimedia-Avesta/django_wce_api) and accounts (https://github.com/Multimedia-Avesta/django_wce_accounts) apps to be installed.
 
 The app requires Celery (https://docs.celeryproject.org/en/stable/) and a message broker such as RabbitMQ
 (https://www.rabbitmq.com/) for handling the long running task of uploading and indexing the transcriptions. It has
