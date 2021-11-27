@@ -142,6 +142,10 @@ transcript_uploader = (function() {
   };
 
   showValidationReport = function(report) {
+    if (!report.hasOwnProperty('valid')) {
+        showMessageBox(report.filename + ' is bring valididated.');
+        return;
+    }
     if (report.valid === true) {
       showMessageBox(report.filename + ' is valid');
     } else {
@@ -157,6 +161,7 @@ transcript_uploader = (function() {
       'src': string,
       'file_name': file_name
     };
+    showValidationReport(JSON.stringify({'file_name': file_name}));
     callback = function(resp) {
       showValidationReport(resp);
     };
@@ -189,7 +194,9 @@ transcript_uploader = (function() {
   indexFile = function () {
     var data, indexing_url, callback, transcription_id;
     data = forms.serialiseForm('transcription_upload_form');
+    showProgressBox(JSON.stringify({}));
     $('#index_button').off('click.index');
+    $('#index_button').prop('disabled', true);
     if (data.skip_schema === 'on') {
       data.skip_schema = true;
     } else {
