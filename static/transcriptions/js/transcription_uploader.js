@@ -75,16 +75,16 @@ transcript_uploader = (function() {
   };
 
   showMessageBox = function(report) {
-    var error_div;
+    var message_div;
     if (document.getElementById('error') !== null) {
       document.getElementsByTagName('body')[0].removeChild(document.getElementById('error'));
     }
-    error_div = document.createElement('div');
-    error_div.setAttribute('id', 'error');
-    error_div.setAttribute('class', 'message');
-    error_div.innerHTML = '<span id="message_title"><b>Message</b></span>' +
+    message_div = document.createElement('div');
+    message_div.setAttribute('id', 'error');
+    message_div.setAttribute('class', 'message');
+    message_div.innerHTML = '<span id="message_title"><b>Message</b></span>' +
                           '<div id="error_close">close</div><br/><br/>' + report;
-    document.getElementsByTagName('body')[0].appendChild(error_div);
+    document.getElementsByTagName('body')[0].appendChild(message_div);
     $('#error_close').off('click.error-close');
     $('#error_close').on('click.error-close', function(event) {
       document.getElementsByTagName('body')[0].removeChild(document.getElementById('error'));
@@ -93,7 +93,7 @@ transcript_uploader = (function() {
   };
 
   showProgressBox = function(data) {
-    var error_div;
+    var message_div;
     data = JSON.parse(data);
     $('#check_ingested_data').off('click');
     $('#check_ingested_data').on('click', function() {
@@ -102,16 +102,16 @@ transcript_uploader = (function() {
     if (document.getElementById('error') !== null) {
       document.getElementsByTagName('body')[0].removeChild(document.getElementById('error'));
     }
-    error_div = document.createElement('div');
-    error_div.setAttribute('id', 'error');
-    error_div.setAttribute('class', 'message');
-    error_div.innerHTML = '<span id="message_title"><b>Indexing Progress</b></span>' +
+    message_div = document.createElement('div');
+    message_div.setAttribute('id', 'error');
+    message_div.setAttribute('class', 'message');
+    message_div.innerHTML = '<span id="message_title"><b>Indexing Progress</b></span>' +
                           '<div id="error_close"></div><br/><br/>' +
                           '<input type="hidden" id="task_id" value="' + data.task_id + '"/>' +
   		                    '<input type="hidden" id="siglum" value="' + data.siglum + '"/>' +
                           '<p id="message">Checking the server for the task.</p>' +
   		                    '<p id="indicator"></p>';
-    document.getElementsByTagName('body')[0].appendChild(error_div);
+    document.getElementsByTagName('body')[0].appendChild(message_div);
   };
 
   handleError = function(action, error_report, model) {
@@ -143,7 +143,7 @@ transcript_uploader = (function() {
 
   showValidationReport = function(report) {
     if (!report.hasOwnProperty('valid')) {
-        showMessageBox(report.filename + ' is bring valididated.');
+        showMessageBox(report.filename + ' is being validated.');
         return;
     }
     if (report.valid === true) {
