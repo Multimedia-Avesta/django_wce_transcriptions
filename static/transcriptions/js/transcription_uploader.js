@@ -143,7 +143,7 @@ transcript_uploader = (function() {
 
   showValidationReport = function(report) {
     if (!report.hasOwnProperty('valid')) {
-        showMessageBox(report.filename + ' is being validated.');
+        showMessageBox('Your file is being validated.');
         return;
     }
     if (report.valid === true) {
@@ -161,7 +161,7 @@ transcript_uploader = (function() {
       'src': string,
       'file_name': file_name
     };
-    showValidationReport(JSON.stringify({'file_name': file_name}));
+    showValidationReport(JSON.stringify({}));
     callback = function(resp) {
       showValidationReport(resp);
     };
