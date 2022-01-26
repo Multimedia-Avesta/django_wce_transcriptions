@@ -90,7 +90,6 @@ class YasnaWordParser(object):
         """
 
         ignore = [self.prefix('note'), self.prefix('fw'), self.prefix('seg')]
-
         if not expand:
             ignore.append(self.prefix('ex'))
 
@@ -100,11 +99,11 @@ class YasnaWordParser(object):
                 result.append(' ')
             if sel.tag not in ignore:
                 if sel.tag == self.prefix('supplied'):
-                    result.append('[{}]'.format(self.flatten_texts(sel)))
+                    result.append('[{}]'.format(self.flatten_texts(sel, expand=expand, word_spaces=word_spaces)))
                 elif sel.tag == self.prefix('unclear'):
-                    result.append('{{{}}}'.format(self.flatten_texts(sel)))
+                    result.append('{{{}}}'.format(self.flatten_texts(sel, expand=expand, word_spaces=word_spaces)))
                 elif sel.tag == self.prefix('abbr'):
-                    result.append('({})'.format(self.flatten_texts(sel)))
+                    result.append('({})'.format(self.flatten_texts(sel, expand=expand, word_spaces=word_spaces)))
                 elif sel.tag == self.prefix('gap'):
                     if sel.get('reason') == 'editorial':
                         gap_text = ''
@@ -118,12 +117,14 @@ class YasnaWordParser(object):
                     for child in sel:
                         if expand:
                             if child.tag == self.prefix('expan'):
-                                result.append(self.flatten_texts(child))
+                                result.append(self.flatten_texts(child, expand=expand, word_spaces=word_spaces))
                         else:
                             if child.tag == self.prefix('abbr'):
-                                result.append('({})'.format(self.flatten_texts(child)))
+                                result.append('({})'.format(self.flatten_texts(child,
+                                                                               expand=expand,
+                                                                               word_spaces=word_spaces)))
                 else:
-                    result.append(self.flatten_texts(sel))
+                    result.append(self.flatten_texts(sel, expand=expand, word_spaces=word_spaces))
             result.append(sel.tail or '')
         if word_spaces is True:
             result = re.sub(r'\s+', ' ', ''.join(result))
